@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Персонаж</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto" style="min-width: 500px;">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Бои <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Магазин</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link " href="#" tabindex="-1">Личный кабинет</a>
+            </li>
+          </ul>
+            {% if user.username != '' %}
+            <form action="/logout/">
+                hi {{ user.username }}
+                <button class="btn btn-primary"> Выйти </button>
+            </form>
+    
+            {% else %}
+            <div class="container "></div>
+                <div class="row mr-0">
+                    <button type="button" class="mb-2 btn btn-primary col-12" data-toggle="modal" data-target="#login">Войти в систему</button>
+                    <button type="button" class="btn btn-primary col-12" data-toggle="modal" data-target="#registr">Регистрация</button>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+      </nav>
+
+
+
+
+    <div class="container">
+        
+    <div class="modal fade" id="registr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Регистрация</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/reg/" method="POST">{% csrf_token %}
+                    <input type="text" class="form-control mb-2" name='username' placeholder="Имя пользователя">
+                    <p><input type="text" class="form-control" name="password" placeholder="Пароль"></p>
+                    <p><input type="submit" class="form-control btn btn-primary" value="Войти"></p>
+                </form>
+            </div>
+        </div>
+        </div>
+        </div>
+    
+        
+
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Вход в систему</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/log/" method="POST">{% csrf_token %}
+                    <input type="text" class="form-control mb-2" name='username' placeholder="Имя пользователя">
+                    <p><input type="text" name="password" class="form-control" placeholder="Пароль"></p>
+                    <p><input type="submit" class="form-control btn btn-primary" value="Войти"></p>
+                </form>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+<style>
+    .container{
+        width: 70%;
+        min-width: 600px;
+        background-color: aquamarine;
+
+    }
+    .modal-header{
+        background-color:deepskyblue;
+    }
+</style>
+
+{% endblock %}
+
